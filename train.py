@@ -66,8 +66,8 @@ class NeuralNetwork:
         self.output.calculateValue()
         return self.output.value
 
-    def trainLyric(self, song):
-        pass
+def train(nn, lyrics, gens):
+    pass
 
 def main():
     nn = NeuralNetwork()
@@ -77,8 +77,7 @@ def main():
         for row in csv_reader:
             lyrics.append(row[5])
 
-    for song in lyrics:
-        nn.trainLyric(song)
+    train(nn, lyrics, 2)
     
 
 main()
