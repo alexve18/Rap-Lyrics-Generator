@@ -4,7 +4,7 @@ import re
     
 def parsetrimmedfile():
     path = 'GeniusLyricsSet/'
-    f2 = open("Superior-trimmed.txt", "a", encoding="utf-8")
+    f2 = open("Superior-trimmed.txt", "w", encoding="utf-8")
 
     for filename in os.listdir(path):
         f = open(path + filename, "r")
@@ -22,7 +22,7 @@ def parsetrimmedfile():
 
 def parsefile():
     path = 'GeniusLyricsSet/'
-    f2 = open("Superior.txt", "a", encoding="utf-8")
+    f2 = open("Superior.txt", "w", encoding="utf-8")
 
     for filename in os.listdir(path):
         f = open(path + filename, "r")
