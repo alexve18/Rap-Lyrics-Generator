@@ -11,7 +11,7 @@ def add_to_dictionary(fileName, freqDictionary):
     words = re.sub("\n", " \n", f.read()).lower().split(' ')
     
     # Counts how often a word (successor) appears after a certain word (current)
-    for current, successor in zip(words[1:], words[:-1]):
+    for current, successor in zip(words[:-1], words[1:]):
         # Check if the current word has been seen before, if not we give current it's own dictionary. 
         if current not in freqDictionary:
             freqDictionary[current] = {successor: 1}
