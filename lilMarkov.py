@@ -5,7 +5,7 @@ import re
 # Returns a dictionary of dictionaries that contain these probabilites.
 def add_to_dictionary(fileName, freqDictionary):
     # Open the file for reading.
-    f = open(fileName, 'r')
+    f = open(fileName, 'r', encoding="utf8")
     # Seperate newline from words so the model doesn't associate 
     # new line with the word in front of it.
     words = re.sub("\n", " \n", f.read()).lower().split(' ')
@@ -19,10 +19,10 @@ def add_to_dictionary(fileName, freqDictionary):
         else:
             # If successor is not in the dictionary we add it to it and assign it 1. 
             if successor not in freqDictionary[current]:
-                freqDictionary[current][successor] = 1;
+                freqDictionary[current][successor] = 1
             # If successor is in the dictionary we increment it's number by 1.
             else:
-                freqDictionary[current][successor] += 1;
+                freqDictionary[current][successor] += 1
 
     # Computes the probability of successors words from current words.
     probDictionary = {}
