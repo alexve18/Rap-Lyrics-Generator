@@ -5,7 +5,7 @@ import re
 # Returns a dictionary of dictionaries that contain these probabilites.
 def add_to_dictionary(fileName, freqDictionary):
     # Open the file for reading.
-    f = open(fileName, 'r')
+    f = open(fileName, 'r', encoding="utf8")
     # Seperate newline from words so the model doesn't associate 
     # new line with the word in front of it.
     words = re.sub("\n", " \n", f.read()).lower().split(' ')
