@@ -1,8 +1,8 @@
 import random
 import re
 
-# Reads through the dataset and calculates the probabilites of words appearing after other words.
-# Returns a dictionary of dictionaries that contain these probabilites.
+# Reads through the datasets and checks three words at a time, and calculates the probabilites of
+# these words appearing in those orders orders.
 def add_to_dictionary(fileName, freqDictionary):
 
     # Open the file for reading.
@@ -11,29 +11,32 @@ def add_to_dictionary(fileName, freqDictionary):
     # new line with the word in front of it.
     words = re.sub("( *\\n)", " \n ", f.read()).lower().split(' ')
 
-    # Counts how often a word (successor) appears after a certain word (current)
-    for current, successor, successorsuccess in zip(words[:-2], words[1:-1], words[2:]):
-        # Check if the current word has been seen before, if not we give current it's own dictionary.
+    # Counts how often a word appers (succSuccessor) after two other particular words (current and successor)
+    for current, successor, succSuccessor in zip(words[:-2], words[1:-1], words[2:]):
+        # Check if the current word has been seen before, if not we add it to the freqDictionary.
         if current not in freqDictionary:
             freqDictionary[current] = {successor: 1}
-            freqDictionary[current][successor] = {successorsuccess: 1}
-        # If it has not been seen we check if the successor word is in the dictionary associated with the current word.
+            freqDictionary[current][successor] =  {succSuccessor: 1}
+        # If it has been seen we check if the successor word is in the dictionary associated with the current word.
         else:
-            # If successor is not in the dictionary we add it to it and assign it 1.
+            # If successor is not in the dictionary associated with current then we add it to it.
             if successor not in freqDictionary[current]:
-                freqDictionary[current][successor] = {successorsuccess: 1}
-            # If successor is in the dictionary we increment it's number by 1.
+                freqDictionary[current][successor] =  {succSuccessor: 1}
+            # If successor is in the dictionary we check if the succSuccessor is in the dictionary.
+            # If it's not than we assign the value of succSuccessor 1.
+            # If it is then we increment the value of succSuccesser value by 1. 
             else:
-                if successorsuccess not in freqDictionary[current][successor]:
-                    freqDictionary[current][successor][successorsuccess] = 1
+                if succSuccessor not in freqDictionary[current][successor]:
+                    freqDictionary[current][successor][succSuccessor] = 1
                 else:
-                    freqDictionary[current][successor][successorsuccess] += 1
+                    freqDictionary[current][successor][succSuccessor] += 1
 
-    # Computes the probability of successors words from current words.
+    # Computes the probability of succSuccessor words from successor words and current words.
     probDictionary = {}
-    # Takes the sum of every time a current word is found and divides the amount of times every successor
-    # word is found and calculates the probability of a successor word from appearing behind 
-    # a current word and stores it in a probDictionary
+
+    # Takes the sum of the number of times a word (succSuccessor) appeared behind 
+    # a pair of two words. (successor and current). Then divides the times a particular
+    # word appeared behind the pair of word to get the probability of that word appearing after this pair of words
     for current, currDictionary in freqDictionary.items():
         probDictionary[current] = {}
         currentTotal = 0.0
@@ -43,33 +46,29 @@ def add_to_dictionary(fileName, freqDictionary):
 
         for successor, succDictionary in currDictionary.items():
             probDictionary[current][successor] = {}
-            for succsucc in succDictionary:
-                probDictionary[current][successor][succsucc] = succDictionary[succsucc] / currentTotal
+            for succSuccessor in succDictionary:
+                probDictionary[current][successor][succSuccessor] = succDictionary[succSuccessor] / currentTotal
     
-
-    print(probDictionary)
     return probDictionary
 
-# Returns a probable successor word for the current word.
+# Returns a probable successor word for the current word and it's next word.
 def next_spit(current, probDictionary):
 
     # If the word is not in the probDictionary then choose a random successor word for it.
     if current not in probDictionary:
         return random.choice(list(probDictionary.keys()))
-    # If the word is in the probDictionary then we find a the likeliest successor word for it.
+    # If the word is in the probDictionary then we find a probable successor word for the 
+    # current word and the next word.
     else:
         # Dictionary that stores the probabilities of each successor word appearing.
         successorProbs = probDictionary[current]
-        # Gets a random probability
         randomProb = random.random()
-        # Probability of the current successor word.
         currentProb = 0.0
-        # Checks the pobability for every successor word and adds it to the currentProb,
-        # when currentProb is equal to or higher than randomPro then return the successor word
-        # that we are currently looking at.
+        # Checks the probability of every known word that's has come after the current word and the next word
+        # and finds a likely successor word
         for successor, succDictionary in successorProbs.items():
-            for succsucc in succDictionary:
-                currentProb += succDictionary[succsucc]
+            for succSuccessor in succDictionary:
+                currentProb += succDictionary[succSuccessor]
                 if randomProb <= currentProb:
                     return successor
         # If no probable successor word was found then return a random word. 

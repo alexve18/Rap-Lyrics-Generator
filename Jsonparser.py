@@ -12,10 +12,11 @@ def parsetrimmedfile():
             parsed_json = json.loads(f.read())
             #print(parsed_json['songs'][0]['lyrics'])
             text = str(parsed_json['songs'][0]['lyrics'])
-            text = re.sub("(\[.+\])", "", text)
-            text = re.sub("(?:\r?\n){2,}", " ", text)
-            text = re.sub("(Chorus *(2x)*)", "", text)
-            text = re.sub("(\(.*\))", "", text)
+            text = re.sub("(\[.+\])", "", text)         #Removes [Verse] [Hook] etc.
+            text = re.sub("(?:\r?\n){2,}", " ", text)   #Removes extra blank lines
+            text = re.sub("(\")", "", text)             #Removes quotation marks
+            text = re.sub("(Chorus *(2x)*)", "", text)  #Removes when the lyrics says chorus
+            #text = re.sub("(\(.*\))", "", text)
             f2.write(text)
         f.close
     f2.close
