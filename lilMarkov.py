@@ -9,7 +9,7 @@ def add_to_dictionary(fileName, freqDictionary):
     # Seperate newline from words so the model doesn't associate 
     # new line with the word in front of it.
     words = re.sub("\n", " \n", f.read()).lower().split(' ')
-
+    
     # Counts how often a word (successor) appears after a certain word (current)
     for current, successor in zip(words[1:], words[:-1]):
         # Check if the current word has been seen before, if not we give current it's own dictionary. 
@@ -19,15 +19,16 @@ def add_to_dictionary(fileName, freqDictionary):
         else:
             # If successor is not in the dictionary we add it to it and assign it 1. 
             if successor not in freqDictionary[current]:
-                freqDictionary[current][successor] = 1;
+                freqDictionary[current][successor] = 1
             # If successor is in the dictionary we increment it's number by 1.
             else:
-                freqDictionary[current][successor] += 1;
+                freqDictionary[current][successor] += 1
 
     # Computes the probability of successors words from current words.
     probDictionary = {}
     # Takes the sum of every time a current word is found and divides the amount of times every successor
-    # word is found and calculates the probability of a successor word from appearing behind a current word and stores it in a probDictionary
+    # word is found and calculates the probability of a successor word from appearing behind 
+    # a current word and stores it in a probDictionary
     for current, currDictionary in freqDictionary.items():
         probDictionary[current] = {}
         # Takes the sum of every time the current word was found in the dataset
@@ -82,6 +83,6 @@ if __name__ == '__main__':
     # after certain words.
     rapProbDictionary = add_to_dictionary('Superior-trimmed.txt', rapFreqDictionary)
 
-    firstWord = input("Choose the first word for your rap!\n ")
-    print("Alright homie, here I go:")
+    firstWord = input("Choose the first word for your rap!\n")
+    print("Alright homie, here I go: \n")
     print(dj_spin_that_shit(firstWord, rapProbDictionary, 100))
