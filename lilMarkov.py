@@ -90,8 +90,13 @@ def dj_spin_that_shit(current, probDictionary, amountOfWords):
 if __name__ == '__main__':
     # A dictionary the stores the frequencies of successor words.
     rapFreqDictionary = {}
-    # A dictionary that stores the probabilites of successor words appearing
-    # after certain words.
+
+    # The lyrics-trimmed.txt dataset is trimmed and contains fewer quotation 
+    # marks, no headers like [chorus], and no extra blank lines.
+    # rapProbDictionary = add_to_dictionary('lyrics-trimmed.txt', rapFreqDictionary)
+
+    # This dataset is not trimmed and generates lyrics that are more like the setup
+    # on the genius website.
     rapProbDictionary = add_to_dictionary('lyrics.txt', rapFreqDictionary)
 
     rapLength = input('How many words do you want to generate?\n> ')

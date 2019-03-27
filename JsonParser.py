@@ -2,9 +2,8 @@ import os
 import json
 import re
 
-# A json to txt parser
-
-def parsetrimmedfile(): #This trims the dataset for easier readable when using the hidden markov model
+ #This trims the dataset from any unwanted symbols and headers
+def parsetrimmedfile():
     path = 'GeniusLyricsSet/'
     f2 = open("lyrics-trimmed.txt", "w", encoding="utf-8")
 
@@ -22,7 +21,8 @@ def parsetrimmedfile(): #This trims the dataset for easier readable when using t
         f.close
     f2.close
 
-def parsefile():    #This is the raw dataset combined into a single file
+#This is the raw dataset combined into a single file
+def parsefile():    
     path = 'GeniusLyricsSet/'
     f2 = open("lyrics.txt", "w", encoding="utf-8")
 
