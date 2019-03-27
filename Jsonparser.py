@@ -1,7 +1,9 @@
 import os
 import json
 import re
-    
+
+# A json to txt parser
+
 def parsetrimmedfile():
     path = 'GeniusLyricsSet/'
     f2 = open("lyrics.txt", "w", encoding="utf-8")
@@ -30,7 +32,6 @@ def parsefile():
         if f.mode == "r":
             parsed_json = json.loads(f.read())
             f2.write(str(parsed_json['songs'][0]['lyrics']))
-            #print(parsed_json['songs'][0]['lyrics'])
         f.close
     f2.close
 
