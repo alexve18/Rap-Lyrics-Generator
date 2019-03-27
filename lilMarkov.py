@@ -91,7 +91,7 @@ if __name__ == '__main__':
     rapFreqDictionary = {}
     # A dictionary that stores the probabilites of successor words appearing
     # after certain words.
-    rapProbDictionary = add_to_dictionary('Superior-trimmed.txt', rapFreqDictionary)
+    rapProbDictionary = add_to_dictionary('lyrics.txt', rapFreqDictionary)
 
     firstWord = input("Choose the first word for your rap!\n")
     print("Alright homie, here I go: \n")
