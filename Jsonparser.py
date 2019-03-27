@@ -1,7 +1,9 @@
 import os
 import json
 import re
-    
+
+# A json to txt parser
+
 def parsetrimmedfile(): #This trims the dataset for easier readable when using the hidden markov model
     path = 'GeniusLyricsSet/'
     f2 = open("lyrics-trimmed.txt", "w", encoding="utf-8")
