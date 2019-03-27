@@ -51,7 +51,7 @@ def add_to_dictionary(fileName, freqDictionary):
     
     return probDictionary
 
-# Returns a probable successor word for the current word and it's next word.
+# Returns a probable successor word for the current word by checking two words ahead.
 def next_spit(current, probDictionary):
 
     # If the word is not in the probDictionary then choose a random successor word for it.
@@ -64,8 +64,8 @@ def next_spit(current, probDictionary):
         successorProbs = probDictionary[current]
         randomProb = random.random()
         currentProb = 0.0
-        # Checks the probability of every known word that's has come after the current word and the next word
-        # and finds a likely successor word
+        # Checks the probability of every known word that has come after a successor word
+        # from the current word, then chooses a likely word and returns the word's predecessor.
         for successor, succDictionary in successorProbs.items():
             for succSuccessor in succDictionary:
                 currentProb += succDictionary[succSuccessor]
