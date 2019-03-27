@@ -96,7 +96,8 @@ if __name__ == '__main__':
     # rapProbDictionary = add_to_dictionary('lyrics-trimmed.txt', rapFreqDictionary)
 
     # This dataset is not trimmed and generates lyrics that are more like the setup
-    # on the genius website.
+    # on the genius website. However he is more prone to errors because he has a hard
+    # time determining when it is apporiate to use brackets and parantheses.
     rapProbDictionary = add_to_dictionary('lyrics.txt', rapFreqDictionary)
 
     rapLength = input('How many words do you want to generate?\n> ')
