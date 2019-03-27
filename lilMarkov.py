@@ -9,7 +9,7 @@ def add_to_dictionary(fileName, freqDictionary):
     f = open(fileName, 'r', encoding="utf8")
     # Seperate newline from words so the model doesn't associate 
     # new line with the word in front of it.
-    words = re.sub("( *\\n)", " \n ", f.read()).lower().split(' ')
+    words = re.sub("( *\\n)", " \n", f.read()).lower().split(' ')
 
     # Counts how often a word appers (succSuccessor) after two other particular words (current and successor)
     for current, successor, succSuccessor in zip(words[:-2], words[1:-1], words[2:]):
@@ -84,6 +84,7 @@ def dj_spin_that_shit(current, probDictionary, amountOfWords):
     # using the next_spit function.
     for word in range(amountOfWords):
         genRap.append(next_spit(genRap[-1], probDictionary))
+    genRap.append('(END OF RAP)')
     return " ".join(genRap)
 
 if __name__ == '__main__':
@@ -93,6 +94,8 @@ if __name__ == '__main__':
     # after certain words.
     rapProbDictionary = add_to_dictionary('lyrics.txt', rapFreqDictionary)
 
-    firstWord = input("Choose the first word for your rap!\n")
-    print("Alright homie, here I go: \n")
-    print(dj_spin_that_shit(firstWord, rapProbDictionary, 100))
+    rapLength = input('How many words do you want to generate?\n> ')
+    intRapLength = int(rapLength)
+    firstWord = input('Choose the first word for your rap!\n> ')
+    print('Alright homie, here I go: \n')
+    print(dj_spin_that_shit(firstWord, rapProbDictionary, intRapLength))
