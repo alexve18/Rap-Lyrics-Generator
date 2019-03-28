@@ -16,7 +16,7 @@ def parsetrimmedfile():
             text = re.sub("(?:\r?\n){2,}", " ", text)   #Removes extra blank lines
             text = re.sub("(\")", "", text)             #Removes quotation marks
             text = re.sub("(Chorus *(2x)*)", "", text)  #Removes when the lyrics says chorus
-            text = re.sub("(\(.*\))", "", text)
+            text = re.sub("(\(.*\))", "", text)         #Removes paranthesis
             f2.write(text)                              #Write it into lyrics.txt
         f.close
     f2.close
