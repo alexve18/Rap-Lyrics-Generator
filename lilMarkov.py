@@ -2,7 +2,7 @@ import random
 import re
 
 # Reads through the datasets and checks three words at a time, and calculates the probabilites of
-# these words appearing in those orders orders.
+# these words appearing in those orders.
 def add_to_dictionary(fileName, freqDictionary):
 
     # Open the file for reading.
@@ -35,8 +35,8 @@ def add_to_dictionary(fileName, freqDictionary):
     probDictionary = {}
 
     # Takes the sum of the number of times a word (succSuccessor) appeared behind 
-    # a pair of two words. (successor and current). Then divides the times a particular
-    # word appeared behind the pair of word to get the probability of that word appearing after this pair of words
+    # a pair of two words. (successor and current). Then divides the time the particular
+    # word appeared behind the pair of words to get the probability of that word appearing after this pair of words.
     for current, currDictionary in freqDictionary.items():
         probDictionary[current] = {}
         currentTotal = 0.0
@@ -75,7 +75,7 @@ def next_spit(current, probDictionary):
         return random.choice(list(probDictionary.keys()))
 
 
-# Generates rap lyrics of the length of amountOfWords.
+# Generates rap lyrics of the same length as amountOfWords.
 def dj_spin_that_shit(current, probDictionary, amountOfWords):
 
     # A list that stores our generated rap
