@@ -1,5 +1,5 @@
 # Rap Lyric Generator using a Hidden Markov model
-This is our final project in a Artificial Intelligence course. 
+This is our final project in an Artificial Intelligence course. 
 
 We make a rap lyrics generator using a hidden Markov model.
 
