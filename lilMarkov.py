@@ -1,14 +1,19 @@
 import random
 import re
 
-# Reads through the datasets and checks three words at a time, and calculates the probabilites of
+# Reads through the datasets and calculates the probabilites of three words appearing together.
 # these words appearing in those orders.
-def add_to_dictionary(fileName, freqDictionary):
+def create_dictionaries(fileName):
 
     # Open the file for reading.
     f = open(fileName, 'r', encoding="utf8")
     # Seperate newline from words so the model doesn't associate new line with the word in front of it.
     words = re.sub("( *\\n)", " \n", f.read()).lower().split(' ')
+
+    # A dictionary that will store the frequencies of a pair of successor words.
+    freqDictionary = {}    
+    # A dictionary that will store computed the probabilities of a pair of successor words.
+    probDictionary = {}
 
     # Counts how often a word appers (succSuccessor) after two other particular words (current and successor)
     for current, successor, succSuccessor in zip(words[:-2], words[1:-1], words[2:]):
@@ -23,15 +28,12 @@ def add_to_dictionary(fileName, freqDictionary):
                 freqDictionary[current][successor] =  {succSuccessor: 1}
             # If successor is in the dictionary we check if the succSuccessor is in the dictionary.
             # If it's not than we assign the value of succSuccessor 1.
-            # If it is then we increment the value of succSuccesser value by 1. 
+            # If it is then we increment the value of succSuccesser by 1. 
             else:
                 if succSuccessor not in freqDictionary[current][successor]:
                     freqDictionary[current][successor][succSuccessor] = 1
                 else:
-                    freqDictionary[current][successor][succSuccessor] += 1
-
-    # Computes the probability of succSuccessor words from successor words and current words.
-    probDictionary = {}
+                    freqDictionary[current][successor][succSuccessor] += 1 
 
     # Takes the sum of the number of times a word (succSuccessor) appeared behind 
     # a pair of two words (successor and current). Then divides the time the particular
@@ -48,9 +50,9 @@ def add_to_dictionary(fileName, freqDictionary):
             for succSuccessor in succDictionary:
                 probDictionary[current][successor][succSuccessor] = succDictionary[succSuccessor] / currentTotal
     
-    return probDictionary
+    return probDictionary, freqDictionary
 
-# Returns a probable successor word for the current word by checking two words ahead.
+# Returns probable successor words for the current word.
 def next_spit(current, probDictionary):
 
     # If the word is not in the probDictionary then choose a random successor word for it.
@@ -61,7 +63,7 @@ def next_spit(current, probDictionary):
     else:
         # Dictionary that stores the probabilities of each successor word appearing.
         successorProbs = probDictionary[current]
-        probThreshold = random.randint(100, 100)/100
+        probThreshold = random.randint(80, 100)/100
         currentProb = 0.0
         # Checks the probability of every known word that has come after a successor word
         # from the current word, then chooses a likely word and returns the word's predecessor.
@@ -88,15 +90,13 @@ def dj_spin_that_shit(current, probDictionary, amountOfWords):
     return " ".join(genRap)
 
 if __name__ == '__main__':
-    # A dictionary the stores the frequencies of successor words.
-    rapFreqDictionary = {}
 
     # The lyrics-trimmed.txt dataset is trimmed and contains fewer quotation 
     # marks, no headers like [chorus], and no extra blank lines.
-    rapProbDictionary = add_to_dictionary('lyrics-trimmed.txt', rapFreqDictionary)
+    rapProbDictionary, rapFreqDictionary = create_dictionaries('lyrics-trimmed.txt')
 
-    # This dataset is not trimmed and generates lyrics that are more like the setup
-    # on the genius website. However he is more prone to errors because he has a hard
+    # You can use the non-trimmed lyrics and generate lyrics that are more like the setup
+    # on the genius.com website. However the algorithm is more prone to errors because he has a hard
     # time determining when it is apporiate to use brackets and parantheses.
     #rapProbDictionary = add_to_dictionary('lyrics.txt', rapFreqDictionary)
 
